@@ -53,7 +53,12 @@ class Graphics:
         self.images = {}
 
         self.images["Empty"] = self.native_image_to_pygame(Image.new("RGBA", (35, 35), (255, 255, 255, 255)))
+        self.images["Transparent"] = self.native_image_to_pygame(Image.new("RGBA", (35, 35), (255, 255, 255, 0)))
         self.images["WarriorIdle"] = self.native_image_to_pygame(main_hero_atlas_idle.crop([30, 50, 30+37, 50+45]).resize([30, 35]))
+
+    def compile_atlas_image(self, imagePath, resultSizeX, resultSizeY, cropX, cropY, cropPosX, cropPosY):
+        atlas = Image.open(imagePath)
+        return self.native_image_to_pygame(main_hero_atlas_idle.crop([cropPosX, cropPosY, cropPosX+cropX, cropPosY+cropY]).resize([30, 35]))
 
     def setup_grid(self):
         self.grid = []
@@ -65,9 +70,10 @@ class Graphics:
                 color = "#%06x" % random.randint(0, 0xFFFFFF)
                 cell = self.images["WarriorIdle"]
                 back = self.images["Empty"]
+                transparent = self.images["Transparent"]
 
                 self.background.append([coords.to_number([x, y], self.grid_size[0]), back, color])
-                self.grid.append([coords.to_number([x, y], self.grid_size[0]), cell, color])
+                self.grid.append([coords.to_number([x, y], self.grid_size[0]), transparent, color])
 
     def get_cell(self, position):
         for i in range(len(self.grid)):

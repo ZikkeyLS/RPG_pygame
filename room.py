@@ -28,15 +28,15 @@ class Room:
         coordinates = coords.to_number([pos_x, pos_y], self.size[0])
         self.grid[entity_object.x][entity_object.y] = [0]
         self.grid[pos_x][pos_y] = [1, entity_object]
-
-        # set new image
-
-        #self.graphics.canvas.itemconfig(self.graphics.get_cell(coordinates)[1], image=entity_object.image)
-        #if coordinates != entity_object.coordinates:
-        #    self.graphics.canvas.itemconfig(self.graphics.get_cell(entity_object.coordinates)[1], image=self.graphics.images["Empty"])
-        #self.graphics.get_cell(coordinates)[1].configure(image=entity_object.image)
+        self.update_image(entity_object)
         entity_object.post_move(pos_x, pos_y, coordinates)
         return True
+
+    def update_image(self, entity_object):        
+        # set new image
+        self.graphics.grid[coordinates][1] = entity_object.image
+        if coordinates != entity_object.coordinates:
+            self.graphics.grid[entity_object.coordinates][1] = self.graphics.images["Transparent"]
 
     def on_update(self):
         perform_on = []
