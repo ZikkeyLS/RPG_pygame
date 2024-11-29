@@ -1,7 +1,5 @@
 import pygame
 from pygame.locals import *
-
-import tkinter
 import PIL
 from PIL import Image
 import random
@@ -38,7 +36,12 @@ class Graphics:
             for x in range(self.grid_size[0]):
                 for y in range(self.grid_size[1]):
                     self.window.blit(self.background[coords.to_number([x, y], self.grid_size[0])][1], [x * 35, y * 35])
-                    self.window.blit(self.grid[coords.to_number([x, y], self.grid_size[0])][1], [x * 35, y * 35])
+
+                    #grid_unit = self.grid[coords.to_number([x, y], self.grid_size[0])]
+                    #self.window.blit(grid_unit[2], grid_unit[1])
+
+            for entity in self.world.currentRoom.entities:
+                self.window.blit(entity.image, [entity.x, entity.y])
 
             #pygame.display.update()
             pygame.display.flip()
@@ -56,12 +59,14 @@ class Graphics:
         self.images["Transparent"] = self.native_image_to_pygame(Image.new("RGBA", (35, 35), (255, 255, 255, 0)))
         self.images["WarriorIdle"] = self.native_image_to_pygame(main_hero_atlas_idle.crop([30, 50, 30+37, 50+45]).resize([30, 35]))
 
-    def compile_atlas_image(self, imagePath, resultSizeX, resultSizeY, cropX, cropY, cropPosX, cropPosY):
-        atlas = Image.open(imagePath)
-        return self.native_image_to_pygame(main_hero_atlas_idle.crop([cropPosX, cropPosY, cropPosX+cropX, cropPosY+cropY]).resize([30, 35]))
+    def get_raw_image(self, imagePath):
+        return Image.open(imagePath)
+
+    def compile_atlas_image(self, atlas, resultSizeX, resultSizeY, cropX, cropY, cropPosX, cropPosY):
+        return self.native_image_to_pygame(atlas.crop([cropPosX, cropPosY, cropPosX+cropX, cropPosY+cropY]).resize([30, 35]))
 
     def setup_grid(self):
-        self.grid = []
+        self.grid = {}
         self.background = []
         self.cell_size = 35
 
@@ -73,7 +78,7 @@ class Graphics:
                 transparent = self.images["Transparent"]
 
                 self.background.append([coords.to_number([x, y], self.grid_size[0]), back, color])
-                self.grid.append([coords.to_number([x, y], self.grid_size[0]), transparent, color])
+                #self.grid.append([coords.to_number([x, y], self.grid_size[0]), [x, y * 35], transparent, color])
 
     def get_cell(self, position):
         for i in range(len(self.grid)):
