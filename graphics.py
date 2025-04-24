@@ -105,7 +105,7 @@ class Graphics:
         self.grid = {}
         self.background = []
         random.seed(123321)
-        
+ 
         for x in range(self.grid_size[0]):
             for y in range(self.grid_size[1]):
                 self.background.append([coords.to_number([x, y], self.grid_size[0]), self.grass_variants[random.randrange(0, len(self.grass_variants))]])
