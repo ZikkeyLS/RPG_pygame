@@ -1,6 +1,5 @@
 import entity
 from input_bindings import *
-import input_bindings
 import animation
 
 class Player(entity.Entity):
@@ -10,6 +9,7 @@ class Player(entity.Entity):
         self.result_scalar = [0, 0]
         self.target_x = self.x
         self.target_y = self.y
+        self.money = 0
 
         idle_animation_frames = self.compile_idle_animation()
         self.idleAnimation = animation.Animation(idle_animation_frames, 1 / len(idle_animation_frames))
@@ -47,8 +47,14 @@ class Player(entity.Entity):
         return round(a + direction, 2)
 
     def on_update(self):
+
+
+
         horizontal = 0
         vertical = 0
+        
+        if is_down(K_e):
+            self.room.activate_nearby()
 
         if is_pressed(K_LEFT):
             horizontal -= 1
