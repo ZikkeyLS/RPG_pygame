@@ -3,7 +3,6 @@ from input_bindings import *
 import animation
 
 class Player(entity.Entity):
-
     def post_initialize(self):
         self.move_frames = 20
         self.result_scalar = [0, 0]
@@ -21,13 +20,15 @@ class Player(entity.Entity):
         
         self.current_animation = self.idle_animation
         self.attacking = False
-  
+
+
     def compile_attack_animation(self):
         result_animation = []
         idle_animation_atlas = self.graphics.get_raw_image("assets/images/Warrior_1/Attack_1.png")
         for i in range(4):
             result_animation.append(self.graphics.compile_atlas_image(idle_animation_atlas, 70, 35, 96, 53, 13 + (i * 96), 44))
         return result_animation
+
 
     def compile_idle_animation(self):
         result_animation = []
@@ -36,6 +37,7 @@ class Player(entity.Entity):
             result_animation.append(self.graphics.compile_atlas_image(idle_animation_atlas, 30, 35, 37, 48, 29 + (i * 96), 48))
         return result_animation
 
+
     def compile_walk_animation(self):
         result_animation = []
         walk_animation_atlas = self.graphics.get_raw_image("assets/images/Warrior_1/Walk.png")
@@ -43,8 +45,10 @@ class Player(entity.Entity):
             result_animation.append(self.graphics.compile_atlas_image(walk_animation_atlas, 30, 35, 37, 48, 29 + (i * 96), 48))
         return result_animation
 
+
     def lerp(self, a: float, b: float, t: float) -> float:
         return (1 - t) * a + t * b
+
 
     def move_towards(self, a: float, b: float, t: float) -> float:
         if a == b:
@@ -57,6 +61,7 @@ class Player(entity.Entity):
             direction = -1
     
         return round(a + direction, 2)
+
 
     def on_update(self):
         horizontal = 0

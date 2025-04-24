@@ -12,7 +12,7 @@ class Graphics:
         
         self.ui_font = pygame.font.SysFont('Comic Sans MS', 30)
         self.ui_texts = {}
-        self.game_font = pygame.font.SysFont('Comic Sans MS', 16)
+        self.game_font = pygame.font.SysFont('Comic Sans MS', 22)
         self.game_texts = {}
         
         self.cell_size = 31
@@ -27,6 +27,7 @@ class Graphics:
         self.load_images()
         self.setup_grid()
 
+
     def render_text(self, initial_message, initial_position, is_ui = True):
         if is_ui:        
             text = self.ui_font.render(initial_message, False, (0, 0, 0))
@@ -35,10 +36,12 @@ class Graphics:
             text = self.game_font.render(initial_message, False, (0, 0, 0))
             self.game_texts[text] = initial_position
 
+
     def update(self):
         for i in range(len(self.on_update_subscribers)):
             self.on_update_subscribers[i]()
-    
+
+
     def run(self):
         while (self.active_run):
             for event in pygame.event.get():
@@ -79,8 +82,10 @@ class Graphics:
             input_bindings.keys_down = []
             input_bindings.keys_up = []
 
+
     def native_image_to_pygame(self, current_image):
         return pygame.image.fromstring(current_image.tobytes(), current_image.size, current_image.mode)
+
 
     def load_images(self):        
         self.atlas_env1 = Image.open("assets/images/base_out_atlas.png")
@@ -94,12 +99,15 @@ class Graphics:
         self.grass_variants = []
         for i in range(3):
             self.grass_variants.append(self.native_image_to_pygame(self.atlas_env1.crop([672+self.cell_size*i, 160, 672+self.cell_size+self.cell_size*i, 160+self.cell_size])))
-    
+
+ 
     def get_raw_image(self, imagePath):
         return Image.open(imagePath)
 
+
     def compile_atlas_image(self, atlas, resultSizeX, resultSizeY, cropX, cropY, cropPosX, cropPosY):
         return self.native_image_to_pygame(atlas.crop([cropPosX, cropPosY, cropPosX+cropX, cropPosY+cropY]).resize([resultSizeX, resultSizeY]))
+
 
     def setup_grid(self):
         self.grid = {}
@@ -109,6 +117,7 @@ class Graphics:
         for x in range(self.grid_size[0]):
             for y in range(self.grid_size[1]):
                 self.background.append([coords.to_number([x, y], self.grid_size[0]), self.grass_variants[random.randrange(0, len(self.grass_variants))]])
+
 
     def get_cell(self, position):
         for i in range(len(self.grid)):

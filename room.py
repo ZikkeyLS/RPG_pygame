@@ -17,11 +17,13 @@ class Room:
         self.player = player.Player()
         self.player.initialize(self.graphics, self, (size[0] // 2) * self.graphics.cell_size, (size[0] // 2) * self.graphics.cell_size, None)
         self.entities.append(self.player)
-        
+
+     
     def activate_nearby(self):
         for entity in self.activatable_entities:
             if abs(entity.x - self.player.x) < 40 and abs(entity.y - self.player.y) < 40:
                 entity.activate()
+
 
     def on_enabled(self):
         if self.prevRoom != None:
@@ -41,6 +43,7 @@ class Room:
             elif coordsDiff[1] == 0:
                 self.player.target_y = self.prevRoom.player.target_y
             self.player.y = self.player.target_y
+
 
     def on_update(self):
         if self.player.target_x == 0:

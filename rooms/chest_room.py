@@ -30,3 +30,7 @@ class ChestRoom(Room):
         tree3.initialize(graphics, self, 250, 50, tree_image)
         self.entities.append(tree3)
 
+
+    def on_update(self):
+        super().on_update()
+        self.graphics.render_text("Назад", (self.graphics.cell_size * self.size[0] - self.graphics.cell_size * 2.25, 450), False)

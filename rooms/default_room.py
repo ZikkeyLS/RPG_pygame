@@ -26,6 +26,11 @@ class DefaultRoom(Room):
         tree5.initialize(graphics, self, 450, 700, tree_image)
         self.entities.append(tree5)
 
+
     def on_update(self):
         super().on_update()
-        self.graphics.render_text("Двигайтесь до упора в любую стенку", (250, 10))
+        self.graphics.render_text("Двигайтесь до упора в стенку", (250, 10))
+        self.graphics.render_text("Комната с сундуком", (10, 450), False)
+        self.graphics.render_text("Комната с репликами", (self.graphics.cell_size * self.size[0] - self.graphics.cell_size * 7.5, 450), False)
+        self.graphics.render_text("Комната с врагом", (self.graphics.cell_size * self.size[0] / 2 - self.graphics.cell_size * 3
+                                                       , self.graphics.cell_size * self.size[1] - self.graphics.cell_size), False)

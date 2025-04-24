@@ -6,8 +6,10 @@ class Animation:
         self.animation_frames = animation_images
         self.speed = speed
 
+
     def Restart(self):
         self.current_frame = 0
+
 
     def RunFrame(self, entity):
         entity.image = self.animation_frames[round(self.current_frame)]

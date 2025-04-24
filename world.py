@@ -24,12 +24,14 @@ class World:
         self.current_room = None
         self.prev_room = None
         self.setCurrentRoom(initial_room)
-    
+
+  
     def setCurrentRoom(self, room):
         self.prev_room = self.current_room
         self.current_room = room
         self.current_room.prevRoom = self.prev_room
         self.current_room.on_enabled()
+
 
     def on_update(self):
         self.graphics.render_text("Деньги (" + str(game_statistics.money) + ")", (30, 10))
