@@ -1,6 +1,7 @@
 import coords
 from rooms.default_room import *
 from rooms.chest_room import *
+from rooms.replication_room import *
 import game_statistics
 
 class World:
@@ -16,6 +17,9 @@ class World:
 
         secondRoom = ChestRoom(grid_size, [4, 5], graphics)
         self.rooms[coords.to_number([4, 5], 10)] = secondRoom
+        
+        thirdRoom = ReplicationRoom(grid_size, [6, 5], graphics)
+        self.rooms[coords.to_number([6, 5], 10)] = thirdRoom
 
         self.current_room = None
         self.prev_room = None
