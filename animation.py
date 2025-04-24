@@ -1,21 +1,24 @@
 
 class Animation:
-    def __init__(self, animationImages, speed = 1):
-        self.currentFrame = 0
-        self.lastFrame = 0
-        self.animationFrames = animationImages
+    def __init__(self, animation_images, speed = 1):
+        self.current_frame = 0
+        self.last_frame = 0
+        self.animation_frames = animation_images
         self.speed = speed
 
     def Restart(self):
-        self.currentFrame = 0
-    
+        self.current_frame = 0
+
     def RunFrame(self, entity):
-        self.currentFrame += self.speed
+        self.current_frame += self.speed
 
-        if round(self.currentFrame) >= len(self.animationFrames):
-            self.currentFrame = 0
-        if round(self.currentFrame) < 0:
-            self.currentFrame = len(self.animationFrames - 1)
+        if round(self.current_frame) >= len(self.animation_frames):
+            self.current_frame = 0
+            return True
+        if round(self.current_frame) < 0:
+            self.current_frame = len(self.animation_frames - 1)
+            return True
 
-        entity.image = self.animationFrames[round(self.currentFrame)]
-        self.lastFrame = round(self.currentFrame)
+        entity.image = self.animation_frames[round(self.current_frame)]
+        self.last_frame = round(self.current_frame)
+        return False

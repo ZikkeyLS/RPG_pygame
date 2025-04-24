@@ -20,6 +20,7 @@ class Player(entity.Entity):
         self.attack_animation = animation.Animation(attack_animation_frames, 1 / len(attack_animation_frames))        
         
         self.current_animation = self.idle_animation
+        self.attacking = False
   
     def compile_attack_animation(self):
         result_animation = []
@@ -63,6 +64,9 @@ class Player(entity.Entity):
         
         if is_down(K_e):
             self.room.activate_nearby()
+            
+        if is_down(K_SPACE):
+            self.attacking = True
 
         if is_pressed(K_LEFT):
             horizontal -= 1
@@ -87,14 +91,21 @@ class Player(entity.Entity):
         else:
             self.size_x = 1
             
-        self.current_animation = self.attack_animation
-        
-        self.current_animation.RunFrame(self)
+        last_frame = self.current_animation.RunFrame(self)
+                    
+        if self.attacking:
+            if self.current_animation != self.attack_animation:
+                self.current_animation = self.attack_animation
+            else:
+                if last_frame:
+                    self.current_animation = self.idle_animation
+                    self.attacking = False
 
-        # if not self.moving:
-        #     self.idle_animation.RunFrame(self)
-        # else:
-        #     self.walk_animation.RunFrame(self)
+        if not(self.attacking):
+            if not self.moving:
+                self.current_animation = self.idle_animation
+            else:
+                self.current_animation = self.walk_animation
 
         self.x = self.lerp(self.x, self.target_x, 1 / 10)
         self.y = self.lerp(self.y, self.target_y, 1 / 10)
