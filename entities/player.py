@@ -15,6 +15,18 @@ class Player(entity.Entity):
 
         walk_animation_frames = self.compile_walk_animation()
         self.walk_animation = animation.Animation(walk_animation_frames, 1 / len(walk_animation_frames))
+        
+        attack_animation_frames = self.compile_attack_animation()
+        self.attack_animation = animation.Animation(attack_animation_frames, 1 / len(attack_animation_frames))        
+        
+        self.current_animation = self.idle_animation
+  
+    def compile_attack_animation(self):
+        result_animation = []
+        idle_animation_atlas = self.graphics.get_raw_image("assets/images/Warrior_1/Attack_1.png")
+        for i in range(4):
+            result_animation.append(self.graphics.compile_atlas_image(idle_animation_atlas, 70, 35, 96, 53, 13 + (i * 96), 44))
+        return result_animation
 
     def compile_idle_animation(self):
         result_animation = []
@@ -74,11 +86,15 @@ class Player(entity.Entity):
             self.size_x = -1
         else:
             self.size_x = 1
+            
+        self.current_animation = self.attack_animation
+        
+        self.current_animation.RunFrame(self)
 
-        if not self.moving:
-            self.idle_animation.RunFrame(self)
-        else:
-            self.walk_animation.RunFrame(self)
+        # if not self.moving:
+        #     self.idle_animation.RunFrame(self)
+        # else:
+        #     self.walk_animation.RunFrame(self)
 
         self.x = self.lerp(self.x, self.target_x, 1 / 10)
         self.y = self.lerp(self.y, self.target_y, 1 / 10)
