@@ -96,18 +96,18 @@ class Player(entity.Entity):
 
         if self.target_x < 0:
             self.target_x = 0
-        elif self.x > self.room.size[0] * 35:
-            self.target_x = self.room.size[0] * 35
+        elif self.x > self.room.size[0] * self.graphics.cell_size:
+            self.target_x = self.room.size[0] * self.graphics.cell_size
         if self.target_x < 0:
             self.target_x = 0
-        elif self.target_x > self.room.size[1] * 35:
-            self.target_x = self.room.size[1] * 35
+        elif self.target_x > self.room.size[1] * self.graphics.cell_size:
+            self.target_x = self.room.size[1] * self.graphics.cell_size
 
         if self.x < 0:
             self.x = 0
-        elif self.x > self.room.size[0] * 35 - 35:
-            self.x = self.room.size[0] * 35 - 35
+        elif self.x > self.room.size[0] * self.graphics.cell_size - self.graphics.cell_size:
+            self.x = self.room.size[0] * self.graphics.cell_size - self.graphics.cell_size
         if self.y < 0:
             self.y = 0
-        elif self.y > self.room.size[1] * 35 - 35:
-            self.y = self.room.size[1] * 35 - 35
+        elif self.y > self.room.size[1] * self.graphics.cell_size - self.graphics.cell_size:
+            self.y = self.room.size[1] * self.graphics.cell_size - self.graphics.cell_size

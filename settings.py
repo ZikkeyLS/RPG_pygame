@@ -1,3 +1,3 @@
 
-GRID_SIZE = [25, 25]
+GRID_SIZE = [29, 29]
 

@@ -15,6 +15,8 @@ class Graphics:
         self.ui_texts = {}
         self.game_font = pygame.font.SysFont('Comic Sans MS', 16)
         self.game_texts = {}
+        
+        self.cell_size = 31
 
         self.window = pygame.display.set_mode((900, 900))
         self.window.fill((127, 127, 127))
@@ -53,7 +55,7 @@ class Graphics:
 
             for x in range(self.grid_size[0]):
                 for y in range(self.grid_size[1]):
-                    self.window.blit(self.background[coords.to_number([x, y], self.grid_size[0])][1], [x * 35, y * 35])
+                    self.window.blit(self.background[coords.to_number([x, y], self.grid_size[0])][1], [x * self.cell_size, y * self.cell_size])
 
             for entity in self.world.currentRoom.entities:
                 if (entity.image == None):
@@ -82,15 +84,15 @@ class Graphics:
         return pygame.image.fromstring(current_image.tobytes(), current_image.size, current_image.mode)
 
     def load_images(self):
-        atlas_env1 = Image.open("assets/images/base_out_atlas.png")
-        main_hero_atlas_idle = Image.open("assets/images/Warrior_1/Idle.png")
-
         self.images = {}
-
-        self.images["Empty"] = self.native_image_to_pygame(Image.new("RGBA", (35, 35), (255, 255, 255, 255)))
-        self.images["Transparent"] = self.native_image_to_pygame(Image.new("RGBA", (35, 35), (255, 255, 255, 0)))
-        self.images["WarriorIdle"] = self.native_image_to_pygame(main_hero_atlas_idle.crop([30, 50, 30+37, 50+45]).resize([30, 35]))
-
+        self.images["Empty"] = self.native_image_to_pygame(Image.new("RGBA", (self.cell_size, self.cell_size), (255, 255, 255, 255)))
+        self.images["Transparent"] = self.native_image_to_pygame(Image.new("RGBA", (self.cell_size, self.cell_size), (255, 255, 255, 0)))
+        
+        atlas_env1 = Image.open("assets/images/base_out_atlas.png")
+        self.grass_variants = []
+        for i in range(4):
+            self.grass_variants.append(self.native_image_to_pygame(atlas_env1.crop([672+self.cell_size*i, 160, 672+self.cell_size+self.cell_size*i, 160+self.cell_size])))
+    
     def get_raw_image(self, imagePath):
         return Image.open(imagePath)
 
@@ -100,17 +102,10 @@ class Graphics:
     def setup_grid(self):
         self.grid = {}
         self.background = []
-        self.cell_size = 35
-
+        
         for x in range(self.grid_size[0]):
             for y in range(self.grid_size[1]):
-                color = "#%06x" % random.randint(0, 0xFFFFFF)
-                cell = self.images["WarriorIdle"]
-                back = self.images["Empty"]
-                transparent = self.images["Transparent"]
-
-                self.background.append([coords.to_number([x, y], self.grid_size[0]), back, color])
-                #self.grid.append([coords.to_number([x, y], self.grid_size[0]), [x, y * 35], transparent, color])
+                self.background.append([coords.to_number([x, y], self.grid_size[0]), self.grass_variants[0]])
 
     def get_cell(self, position):
         for i in range(len(self.grid)):

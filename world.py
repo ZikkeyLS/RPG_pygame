@@ -28,7 +28,7 @@ class World:
         self.currentRoom.on_enabled()
 
     def on_update(self):
-        self.graphics.render_text("Money - " + str(game_statistics.money), (30, 10))
+        self.graphics.render_text("Деньги (" + str(game_statistics.money) + ")", (30, 10))
         
         if (self.currentRoom.requireTeleport):
             self.currentRoom.requireTeleport = False
