@@ -1,6 +1,7 @@
 import coords
 from rooms.default_room import *
 from rooms.chest_room import *
+import game_statistics
 
 class World:
     def initialize(self, settings, graphics):
@@ -8,6 +9,7 @@ class World:
         grid_size = settings
 
         self.rooms = {}
+        self.graphics = graphics
 
         initialRoom = DefaultRoom(grid_size, [5, 5], graphics)
         self.rooms[coords.to_number([5, 5], 10)] = initialRoom
@@ -26,6 +28,8 @@ class World:
         self.currentRoom.on_enabled()
 
     def on_update(self):
+        self.graphics.render_text("Money - " + str(game_statistics.money), (30, 10))
+        
         if (self.currentRoom.requireTeleport):
             self.currentRoom.requireTeleport = False
             if coords.to_number(self.currentRoom.teleportCoordinates, 10) in self.rooms:

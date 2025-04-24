@@ -1,6 +1,7 @@
 import random
 from entities.interactable_entity import *
 import animation
+import game_statistics
 
 class Chest(InteractableEntity):
     def post_initialize(self):
@@ -20,5 +21,5 @@ class Chest(InteractableEntity):
         self.idleAnimation.RunFrame(self)
     
     def on_activate(self):
-        self.room.player.money += self.money
+        game_statistics.money += self.money
         self.money = 0
