@@ -38,7 +38,7 @@ class Chest(InteractableEntity):
             self.openedAnimation.RunFrame(self)
 
         if self.opened == False and abs(self.x - self.room.player.x) < 40 and abs(self.y - self.room.player.y) < 40:
-            self.graphics.render_text("E", (self.x + 31 / 2 - 5, self.y - 31 / 2 - 5), False)
+            self.graphics.render_text("E", (self.x + 31 / 2 - 5, self.y - 31 / 2 - 11), False)
 
 
     def on_activate(self):

@@ -9,6 +9,8 @@ class Player(entity.Entity):
         self.target_x = self.x
         self.target_y = self.y
 
+        self.damage = 2
+
         idle_animation_frames = self.compile_idle_animation()
         self.idle_animation = animation.Animation(idle_animation_frames, 1 / len(idle_animation_frames))
 
@@ -71,15 +73,16 @@ class Player(entity.Entity):
             self.room.activate_nearby()
             
         if is_down(K_SPACE):
+            self.room.attack_nearby()
             self.attacking = True
 
-        if is_pressed(K_LEFT):
+        if is_pressed(K_a):
             horizontal -= 1
-        elif is_pressed(K_RIGHT):
+        elif is_pressed(K_d):
             horizontal += 1
-        if is_pressed(K_UP):
+        if is_pressed(K_w):
             vertical -= 1
-        elif is_pressed(K_DOWN):
+        elif is_pressed(K_s):
             vertical += 1
 
         scale = 1
@@ -89,9 +92,9 @@ class Player(entity.Entity):
         self.result_scalar[0] += horizontal * scale
         self.result_scalar[1] += vertical * scale
 
-        self.moving = is_pressed(K_LEFT) or is_pressed(K_RIGHT) or is_pressed(K_UP) or is_pressed(K_DOWN)
+        self.moving = is_pressed(K_a) or is_pressed(K_d) or is_pressed(K_w) or is_pressed(K_s)
 
-        if is_pressed(K_LEFT):
+        if is_pressed(K_a):
             self.size_x = -1
         else:
             self.size_x = 1

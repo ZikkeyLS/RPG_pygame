@@ -39,6 +39,7 @@ class World:
 
     def on_update(self):
         self.graphics.render_text("Деньги (" + str(game_statistics.money) + ")", (30, 10))
+        self.graphics.render_text("Убито (" + str(game_statistics.killed) + ")", (self.graphics.cell_size * grid_size[0] - self.graphics.cell_size * 5.5, 10))
         
         if (self.current_room.require_teleport):
             self.current_room.require_teleport = False

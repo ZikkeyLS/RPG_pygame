@@ -1,5 +1,6 @@
 from room import *
 from entities.player import *
+from entities.enemy import *
 
 class EnemyRoom(Room):
     def __init__(self, size, coordinates, graphics):
@@ -10,6 +11,11 @@ class EnemyRoom(Room):
         tree1 = entity.Entity()
         tree1.initialize(graphics, self, 250, 250, tree_image)
         self.entities.append(tree1)
+        
+        enemy = Enemy()
+        enemy.initialize(graphics, self, (size[0] // 2) * self.graphics.cell_size, (size[0] // 2) * self.graphics.cell_size, None)
+        self.entities.append(enemy)
+        self.atackable_entities.append(enemy)
 
 
     def on_update(self):

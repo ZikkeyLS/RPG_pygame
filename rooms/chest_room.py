@@ -33,4 +33,5 @@ class ChestRoom(Room):
 
     def on_update(self):
         super().on_update()
+        self.graphics.render_text("Активируйте сундук", (300, 10))
         self.graphics.render_text("Назад", (self.graphics.cell_size * self.size[0] - self.graphics.cell_size * 2.25, 450), False)
