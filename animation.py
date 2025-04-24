@@ -10,6 +10,9 @@ class Animation:
         self.current_frame = 0
 
     def RunFrame(self, entity):
+        entity.image = self.animation_frames[round(self.current_frame)]
+        self.last_frame = round(self.current_frame)
+        
         self.current_frame += self.speed
 
         if round(self.current_frame) >= len(self.animation_frames):
@@ -19,6 +22,4 @@ class Animation:
             self.current_frame = len(self.animation_frames - 1)
             return True
 
-        entity.image = self.animation_frames[round(self.current_frame)]
-        self.last_frame = round(self.current_frame)
         return False

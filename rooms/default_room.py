@@ -28,4 +28,4 @@ class DefaultRoom(Room):
 
     def on_update(self):
         super().on_update()
-        self.graphics.render_text("Двигайтесь до упора влево", (250, 10))
+        self.graphics.render_text("Двигайтесь до упора в любую стенку", (250, 10))
