@@ -37,13 +37,14 @@ class Graphics:
                 for y in range(self.grid_size[1]):
                     self.window.blit(self.background[coords.to_number([x, y], self.grid_size[0])][1], [x * 35, y * 35])
 
-                    #grid_unit = self.grid[coords.to_number([x, y], self.grid_size[0])]
-                    #self.window.blit(grid_unit[2], grid_unit[1])
-
             for entity in self.world.currentRoom.entities:
-                self.window.blit(entity.image, [entity.x, entity.y])
+                entity_image = entity.image.copy()
+                x_flip = entity.size_x < 0
+                y_flip = entity.size_y < 0
+                if x_flip or y_flip:
+                    entity_image = pygame.transform.flip(entity_image, x_flip, y_flip) 
+                self.window.blit(entity_image, [entity.x, entity.y])
 
-            #pygame.display.update()
             pygame.display.flip()
 
     def native_image_to_pygame(self, current_image):
