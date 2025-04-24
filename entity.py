@@ -9,6 +9,8 @@ class Entity:
         self.room = current_room
         self.x = x
         self.y = y
+        self.size_x = 1
+        self.size_y = 1
         self.image = startup_image
         self.coordinates = coords.to_number([x, y], self.graphics.grid_size[0])
 
