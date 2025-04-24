@@ -1,10 +1,9 @@
 import pygame
 from pygame.locals import *
-import PIL
 from PIL import Image
-import random
 import coords
 import input_bindings
+import random
 
 class Graphics:
     def initialize(self, settings):
@@ -90,7 +89,7 @@ class Graphics:
         
         atlas_env1 = Image.open("assets/images/base_out_atlas.png")
         self.grass_variants = []
-        for i in range(4):
+        for i in range(3):
             self.grass_variants.append(self.native_image_to_pygame(atlas_env1.crop([672+self.cell_size*i, 160, 672+self.cell_size+self.cell_size*i, 160+self.cell_size])))
     
     def get_raw_image(self, imagePath):
@@ -102,10 +101,11 @@ class Graphics:
     def setup_grid(self):
         self.grid = {}
         self.background = []
+        random.seed(123321)
         
         for x in range(self.grid_size[0]):
             for y in range(self.grid_size[1]):
-                self.background.append([coords.to_number([x, y], self.grid_size[0]), self.grass_variants[0]])
+                self.background.append([coords.to_number([x, y], self.grid_size[0]), self.grass_variants[random.randrange(0, len(self.grass_variants))]])
 
     def get_cell(self, position):
         for i in range(len(self.grid)):

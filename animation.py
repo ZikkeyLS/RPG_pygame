@@ -17,8 +17,5 @@ class Animation:
         if round(self.currentFrame) < 0:
             self.currentFrame = len(self.animationFrames - 1)
 
-        # if abs(self.currentFrame - self.lastFrame) < 1:
-        #     return
-
         entity.image = self.animationFrames[round(self.currentFrame)]
         self.lastFrame = round(self.currentFrame)
