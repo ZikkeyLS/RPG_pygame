@@ -39,20 +39,28 @@ class Room:
             if coordsDiff[1] == -1:
                 self.player.target_y = self.graphics.cell_size
             elif coordsDiff[1] == 1:
-                self.player.target_y = (self.size[1] - 1) * self.graphics.cell_size - self.graphics.cell_size         
+                self.player.target_y = (self.size[1] - 1) * self.graphics.cell_size - self.graphics.cell_size
             elif coordsDiff[1] == 0:
                 self.player.target_y = self.prevRoom.player.target_y
             self.player.y = self.player.target_y
 
 
     def on_update(self):
-        if self.player.target_x == 0:
+        if self.player.target_x <= 0:
             self.require_teleport = True
             self.teleport_coordinates = [self.coordinates[0] - 1, self.coordinates[1]]
 
-        if self.player.target_x / self.graphics.cell_size == self.size[0]:
+        if self.player.target_x / self.graphics.cell_size >= self.size[0]:
             self.require_teleport = True
             self.teleport_coordinates = [self.coordinates[0] + 1, self.coordinates[1]]
+        
+        if self.player.target_y <= 0:
+            self.require_teleport = True
+            self.teleport_coordinates = [self.coordinates[0], self.coordinates[1] - 1]
+
+        if self.player.target_y / self.graphics.cell_size >= self.size[0]:
+            self.require_teleport = True
+            self.teleport_coordinates = [self.coordinates[0], self.coordinates[1] + 1]
 
         for entity in self.entities:
             entity.on_update()       
