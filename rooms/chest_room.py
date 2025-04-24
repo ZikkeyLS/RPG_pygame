@@ -9,3 +9,24 @@ class ChestRoom(Room):
         self.chest.initialize(graphics, self, (size[0] // 2) * graphics.cell_size, (size[0] // 2) * graphics.cell_size, None)
         self.entities.append(self.chest)
         self.activatable_entities.append(self.chest)
+
+        pond_image = self.graphics.images["Pond"]
+        
+        pond1 = entity.Entity()
+        pond1.initialize(graphics, self, 300, 150, pond_image)
+        self.entities.append(pond1)
+                  
+        tree_image = self.graphics.images["Tree"]
+        
+        tree1 = entity.Entity()
+        tree1.initialize(graphics, self, 200, 175, tree_image)
+        self.entities.append(tree1)
+                
+        tree2 = entity.Entity()
+        tree2.initialize(graphics, self, 425, 240, tree_image)
+        self.entities.append(tree2)
+        
+        tree3 = entity.Entity()
+        tree3.initialize(graphics, self, 250, 50, tree_image)
+        self.entities.append(tree3)
+

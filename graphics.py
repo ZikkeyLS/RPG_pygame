@@ -82,13 +82,15 @@ class Graphics:
     def native_image_to_pygame(self, current_image):
         return pygame.image.fromstring(current_image.tobytes(), current_image.size, current_image.mode)
 
-    def load_images(self):
+    def load_images(self):        
+        self.atlas_env1 = Image.open("assets/images/base_out_atlas.png")
+        
         self.images = {}
         self.images["Empty"] = self.native_image_to_pygame(Image.new("RGBA", (self.cell_size, self.cell_size), (255, 255, 255, 255)))
         self.images["Transparent"] = self.native_image_to_pygame(Image.new("RGBA", (self.cell_size, self.cell_size), (255, 255, 255, 0)))
-        
-        self.atlas_env1 = Image.open("assets/images/base_out_atlas.png")
-        
+        self.images["Tree"] = self.native_image_to_pygame(self.atlas_env1.crop([768, 485, 768+85, 485+90]))
+        self.images["Pond"] = self.native_image_to_pygame(self.atlas_env1.crop([672, 417, 672+95, 417+95]))
+
         self.grass_variants = []
         for i in range(3):
             self.grass_variants.append(self.native_image_to_pygame(self.atlas_env1.crop([672+self.cell_size*i, 160, 672+self.cell_size+self.cell_size*i, 160+self.cell_size])))
