@@ -56,7 +56,7 @@ class Graphics:
                 for y in range(self.grid_size[1]):
                     self.window.blit(self.background[coords.to_number([x, y], self.grid_size[0])][1], [x * self.cell_size, y * self.cell_size])
 
-            for entity in self.world.currentRoom.entities:
+            for entity in self.world.current_room.entities:
                 if (entity.image == None):
                     continue
                 entity_image = entity.image.copy()
@@ -87,10 +87,11 @@ class Graphics:
         self.images["Empty"] = self.native_image_to_pygame(Image.new("RGBA", (self.cell_size, self.cell_size), (255, 255, 255, 255)))
         self.images["Transparent"] = self.native_image_to_pygame(Image.new("RGBA", (self.cell_size, self.cell_size), (255, 255, 255, 0)))
         
-        atlas_env1 = Image.open("assets/images/base_out_atlas.png")
+        self.atlas_env1 = Image.open("assets/images/base_out_atlas.png")
+        
         self.grass_variants = []
         for i in range(3):
-            self.grass_variants.append(self.native_image_to_pygame(atlas_env1.crop([672+self.cell_size*i, 160, 672+self.cell_size+self.cell_size*i, 160+self.cell_size])))
+            self.grass_variants.append(self.native_image_to_pygame(self.atlas_env1.crop([672+self.cell_size*i, 160, 672+self.cell_size+self.cell_size*i, 160+self.cell_size])))
     
     def get_raw_image(self, imagePath):
         return Image.open(imagePath)

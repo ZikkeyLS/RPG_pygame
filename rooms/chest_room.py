@@ -8,4 +8,4 @@ class ChestRoom(Room):
         self.chest = Chest()
         self.chest.initialize(graphics, self, (size[0] // 2) * graphics.cell_size, (size[0] // 2) * graphics.cell_size, None)
         self.entities.append(self.chest)
-        self.activatableEntities.append(self.chest)
+        self.activatable_entities.append(self.chest)

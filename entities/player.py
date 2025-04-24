@@ -5,16 +5,16 @@ import animation
 class Player(entity.Entity):
 
     def post_initialize(self):
-        self.moveFrames = 20
+        self.move_frames = 20
         self.result_scalar = [0, 0]
         self.target_x = self.x
         self.target_y = self.y
 
         idle_animation_frames = self.compile_idle_animation()
-        self.idleAnimation = animation.Animation(idle_animation_frames, 1 / len(idle_animation_frames))
+        self.idle_animation = animation.Animation(idle_animation_frames, 1 / len(idle_animation_frames))
 
         walk_animation_frames = self.compile_walk_animation()
-        self.walkAnimation = animation.Animation(walk_animation_frames, 1 / len(walk_animation_frames))
+        self.walk_animation = animation.Animation(walk_animation_frames, 1 / len(walk_animation_frames))
 
     def compile_idle_animation(self):
         result_animation = []
@@ -76,22 +76,22 @@ class Player(entity.Entity):
             self.size_x = 1
 
         if not self.moving:
-            self.idleAnimation.RunFrame(self)
+            self.idle_animation.RunFrame(self)
         else:
-            self.walkAnimation.RunFrame(self)
+            self.walk_animation.RunFrame(self)
 
         self.x = self.lerp(self.x, self.target_x, 1 / 10)
         self.y = self.lerp(self.y, self.target_y, 1 / 10)
 
-        if abs(self.result_scalar[0]) >= self.moveFrames and abs(self.result_scalar[1]) > self.moveFrames:
-            self.target_x += self.result_scalar[0] / self.moveFrames * 35
-            self.target_y += self.result_scalar[1] / self.moveFrames * 35
+        if abs(self.result_scalar[0]) >= self.move_frames and abs(self.result_scalar[1]) > self.move_frames:
+            self.target_x += self.result_scalar[0] / self.move_frames * 35
+            self.target_y += self.result_scalar[1] / self.move_frames * 35
             self.result_scalar = [0, 0]
-        elif abs(self.result_scalar[0]) >= self.moveFrames:
-            self.target_x += self.result_scalar[0] / self.moveFrames * 35
+        elif abs(self.result_scalar[0]) >= self.move_frames:
+            self.target_x += self.result_scalar[0] / self.move_frames * 35
             self.result_scalar[0] = 0
-        elif abs(self.result_scalar[1]) >= self.moveFrames:
-            self.target_y += self.result_scalar[1] / self.moveFrames * 35
+        elif abs(self.result_scalar[1]) >= self.move_frames:
+            self.target_y += self.result_scalar[1] / self.move_frames * 35
             self.result_scalar[1] = 0
 
         if self.target_x < 0:
