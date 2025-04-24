@@ -1,6 +1,6 @@
-import room
-import rooms.default_room
 import coords
+from rooms.default_room import *
+from rooms.chest_room import *
 
 class World:
     def initialize(self, settings, graphics):
@@ -9,10 +9,10 @@ class World:
 
         self.rooms = {}
 
-        initialRoom = rooms.default_room.DefaultRoom(grid_size, [5, 5], graphics)
+        initialRoom = DefaultRoom(grid_size, [5, 5], graphics)
         self.rooms[coords.to_number([5, 5], 10)] = initialRoom
 
-        secondRoom = room.Room(grid_size, [4, 5], graphics)
+        secondRoom = ChestRoom(grid_size, [4, 5], graphics)
         self.rooms[coords.to_number([4, 5], 10)] = secondRoom
 
         self.currentRoom = None

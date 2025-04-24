@@ -1,5 +1,5 @@
 import entity
-import player
+import entities.player as player
 import coords
 
 class Room:
@@ -10,15 +10,18 @@ class Room:
         self.teleportCoordinates = [0, 0]
         
         self.entities = []
+        self.activatableEntities = []
         self.size = size
         self.graphics = graphics
-
-        doors = []
-
+        
         self.player = player.Player()
-        self.player.initialize(self.graphics, self, (size[0] // 2) * 35, (size[0] // 2) * 35, self.graphics.images["WarriorIdle"])
-
+        self.player.initialize(self.graphics, self, (size[0] // 2) * 35, (size[0] // 2) * 35, None)
         self.entities.append(self.player)
+        
+    def activate_nearby(self):
+        for entity in self.activatableEntities:
+            if (abs(entity.x - self.player.x) < 40 and abs(entity.y - self.player.y) < 40):
+                entity.activate()
 
     def on_enabled(self):
         if self.prevRoom != None:
