@@ -11,8 +11,10 @@ class Graphics:
         pygame.init()
         pygame.font.init()
         
-        self.font = pygame.font.SysFont('Comic Sans MS', 30)
-        self.texts = {}
+        self.ui_font = pygame.font.SysFont('Comic Sans MS', 30)
+        self.ui_texts = {}
+        self.game_font = pygame.font.SysFont('Comic Sans MS', 16)
+        self.game_texts = {}
 
         self.window = pygame.display.set_mode((900, 900))
         self.window.fill((127, 127, 127))
@@ -24,9 +26,13 @@ class Graphics:
         self.load_images()
         self.setup_grid()
 
-    def render_text(self, initial_message, initial_position):
-        text = self.font.render(initial_message, False, (0, 0, 0))
-        self.texts[text] = initial_position
+    def render_text(self, initial_message, initial_position, is_ui = True):
+        if is_ui:        
+            text = self.ui_font.render(initial_message, False, (0, 0, 0))
+            self.ui_texts[text] = initial_position
+        else:
+            text = self.game_font.render(initial_message, False, (0, 0, 0))
+            self.game_texts[text] = initial_position
 
     def update(self):
         for i in range(len(self.on_update_subscribers)):
@@ -58,10 +64,14 @@ class Graphics:
                 if x_flip or y_flip:
                     entity_image = pygame.transform.flip(entity_image, x_flip, y_flip) 
                 self.window.blit(entity_image, [entity.x, entity.y])
-           
-            for text, position in self.texts.items():
+        
+            for text, position in self.game_texts.items():
                 self.window.blit(text, position)
-            self.texts.clear()
+            self.game_texts.clear()
+            
+            for text, position in self.ui_texts.items():
+                self.window.blit(text, position)
+            self.ui_texts.clear()
 
             pygame.display.flip()
             

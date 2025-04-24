@@ -20,7 +20,7 @@ class Room:
         
     def activate_nearby(self):
         for entity in self.activatableEntities:
-            if (abs(entity.x - self.player.x) < 40 and abs(entity.y - self.player.y) < 40):
+            if abs(entity.x - self.player.x) < 40 and abs(entity.y - self.player.y) < 40:
                 entity.activate()
 
     def on_enabled(self):
