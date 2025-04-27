@@ -24,6 +24,7 @@ class Button():
 
         self.alreadyPressed = False
 
+
     def process(self):
 
         mousePos = pygame.mouse.get_pos()

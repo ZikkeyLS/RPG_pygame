@@ -10,6 +10,7 @@ location = [0, 0]
 def save_exists():
     return os.path.exists('save.txt')
 
+
 def try_load_save():
     try:
         if os.path.exists('save.txt'):
@@ -19,11 +20,13 @@ def try_load_save():
     except:
         print("Error while loading the save!")
 
+
 def save():
     global money, killed, player_x, player_y, location 
     saveData = json.dumps([money, killed, player_x, player_y, location])
     f = open('save.txt', 'w')
     f.write(saveData)
+
 
 def load():   
     global money, killed, player_x, player_y, location  

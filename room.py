@@ -25,11 +25,13 @@ class Room:
         for entity in self.activatable_entities:
             if abs(entity.x - self.player.x) < 40 and abs(entity.y - self.player.y) < 40:
                 entity.activate()
-                
+    
+            
     def attack_nearby(self):
         for entity in self.atackable_entities:
             if abs(entity.x - self.player.x) < 40 and abs(entity.y - self.player.y) < 40:
                 entity.give_damage(self.player.damage)
+
 
     def on_enabled(self):
         if self.prevRoom == None and game_statistics.location != [0, 0]:
@@ -55,6 +57,7 @@ class Room:
             elif coordsDiff[1] == 0:
                 self.player.target_y = self.prevRoom.player.target_y
             self.player.y = self.player.target_y
+
 
 
     def on_update(self):
