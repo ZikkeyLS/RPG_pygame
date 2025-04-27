@@ -8,6 +8,10 @@ class Chest(InteractableEntity):
         self.money = random.randrange(5, 10)
         self.opened = False
         
+        if (game_statistics.money > 0):
+            self.opened = True
+            self.money = 0
+        
         idle_animation_frames = self.compile_idle_animation()
         self.idleAnimation = animation.Animation(idle_animation_frames, 1 / len(idle_animation_frames))
         

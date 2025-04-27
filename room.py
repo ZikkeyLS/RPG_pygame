@@ -1,6 +1,7 @@
 import entity
 import entities.player as player
 import coords
+import game_statistics
 
 class Room:
     def __init__(self, size, coordinates, graphics):
@@ -31,6 +32,12 @@ class Room:
                 entity.give_damage(self.player.damage)
 
     def on_enabled(self):
+        if self.prevRoom == None and game_statistics.location != [0, 0]:
+            self.player.x = game_statistics.player_x
+            self.player.y = game_statistics.player_y
+            self.player.target_x = self.player.x
+            self.player.target_y = self.player.y
+        
         if self.prevRoom != None:
             coordsDiff = [self.prevRoom.coordinates[0] - self.coordinates[0], self.prevRoom.coordinates[1] - self.coordinates[1]]
             if coordsDiff[0] == -1:

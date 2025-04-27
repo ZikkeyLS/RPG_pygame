@@ -6,9 +6,15 @@ from rooms.enemy_room import *
 import game_statistics
 
 class World:
+    def __init__(self):
+        self.initialized = False
+
+    
     def initialize(self, settings, graphics):
         global grid_size
         grid_size = settings
+        
+        self.initialized = True
 
         self.rooms = {}
         self.graphics = graphics
@@ -27,7 +33,11 @@ class World:
 
         self.current_room = None
         self.prev_room = None
-        self.setCurrentRoom(initial_room)
+        
+        if game_statistics.location != [0, 0]:
+            self.setCurrentRoom(self.rooms[coords.to_number(game_statistics.location, 10)])
+        else:
+            self.setCurrentRoom(initial_room)
 
   
     def setCurrentRoom(self, room):
@@ -35,6 +45,7 @@ class World:
         self.current_room = room
         self.current_room.prevRoom = self.prev_room
         self.current_room.on_enabled()
+        game_statistics.location = room.coordinates
 
 
     def on_update(self):

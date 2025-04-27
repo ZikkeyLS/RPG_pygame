@@ -1,6 +1,7 @@
 import entity
 from input_bindings import *
 import animation
+import game_statistics
 
 class Player(entity.Entity):
     def post_initialize(self):
@@ -68,6 +69,9 @@ class Player(entity.Entity):
     def on_update(self):
         horizontal = 0
         vertical = 0
+        
+        game_statistics.player_x = self.x
+        game_statistics.player_y = self.y
         
         if is_down(K_e):
             self.room.activate_nearby()

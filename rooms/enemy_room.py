@@ -12,10 +12,10 @@ class EnemyRoom(Room):
         tree1.initialize(graphics, self, 250, 250, tree_image)
         self.entities.append(tree1)
         
-        enemy = Enemy()
-        enemy.initialize(graphics, self, (size[0] // 2) * self.graphics.cell_size, (size[0] // 2) * self.graphics.cell_size, None)
+        enemy = Enemy()        
         self.entities.append(enemy)
         self.atackable_entities.append(enemy)
+        enemy.initialize(graphics, self, (size[0] // 2) * self.graphics.cell_size, (size[0] // 2) * self.graphics.cell_size, None)
 
 
     def on_update(self):

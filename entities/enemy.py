@@ -7,6 +7,9 @@ class Enemy(Entity):
     def post_initialize(self):
         self.hp = 5
         
+        if (game_statistics.killed > 0):
+            self.kill()
+        
         idle_animation_frames = self.compile_idle_animation()
         self.idleAnimation = animation.Animation(idle_animation_frames, 1 / len(idle_animation_frames))
         
